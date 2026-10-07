@@ -8,3 +8,4 @@
 *.synctex.gz
 # Section files regenerated from cv.tex by filecontents
 cv-*.tex
+*.cut
