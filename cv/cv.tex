@@ -1,0 +1,432 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Nguyen Minh Quang -- Academic CV (single-file, CurVe class)
+%
+%  Layout after LianTze Lim's CurVe template. Everything lives in this file:
+%    1. section contents   (filecontents* blocks right below)
+%    2. styling            (formerly settings.sty)
+%    3. fonts, header, photo, section order
+%  The photo is read from figures/photo.jpg.
+%
+%  Build:  pdflatex cv   (twice -- the section tables need two passes)
+%  Overleaf: upload the zip, main document = cv.tex, compiler = pdfLaTeX.
+%
+%  Why filecontents: CurVe typesets every section with \LTXtable, which can
+%  only read a table from a file. These blocks write those small files at
+%  compile time, so you still edit only this one file.
+%
+%  Editing tips
+%   - Inside a section use \newline for a line break, never \\ .
+%   - \entry*[date]  starts a new marked entry; \centry[date] continues the
+%     previous one without a marker (used for Responsibilities / Impact).
+%   - Entries sharing a date print it once (skipsamekey).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  1. SECTION CONTENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{filecontents*}[overwrite]{cv-research.tex}
+\begin{rubric}{Research Experience}
+\entry*[\dk{Dec 2025}{Present}]
+\entrytitle{Research Assistant} \newline
+FPT University, Ha Noi, Vietnam --- advised by Dr.\ Vanha Tran
+\begin{itemize}
+  \item Researched and applied Knowledge Graph and advanced Retrieval-Augmented Generation frameworks to evaluate corporate sustainability reports against the Global Reporting Initiative (GRI) and other ESG standards
+  \item Developed structure-aware chunking and LLM-guided information extraction pipelines; fine-tuned VLMs and domain-adapted embeddings model to accurately extract tabular and unstructured multimodal data from complex ESG reports
+  \item Optimized KG retrieval and vector-space search pipelines, experimenting with heterogeneous data sources to enhance multi-hop reasoning, context grounding, and question-answering performance for ESG compliance
+  \item First-authored three peer-reviewed papers from this line of work (IUKM 2026, ICCSA 2026, AIS 2026); presented at AIS 2026 in San Antonio, USA
+\end{itemize}
+\end{rubric}
+\end{filecontents*}
+
+
+\begin{filecontents*}[overwrite]{cv-employment.tex}
+\begin{rubric}{Professional Experience}
+
+\entry*[\dk{Feb 2026}{Present}]
+\entrysub{\fontsize{12}{14.5}\selectfont Agentic UP (AI-Native Enterprise)}\newline
+\pfield{Role}{AI Engineer\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad Feb 2026 -- Present (8 months), team of 6}
+\pfieldlast{Tech Stack}{Claude Code SDK, OpenAI SDK, LangGraph, FastMCP, LiteLLM, Langfuse, DeepEval, vLLM, Qdrant, Neo4j}
+
+\gentry[\dk{Feb 2026}{Present}]
+\plabel{Responsibilities}\par
+\bitem{Built a knowledge graph (\textasciitilde100K nodes, 400K+ edges; schema of 32 node types and 46 edge types) from 20+ internal systems --- code, logs, and design documents --- so agents can look up context instead of searching the codebase turn by turn}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Built the retrieval layer on top of it: hybrid search (dense + sparse) in Qdrant with metadata filtering by source, entity type, and time, combined with graph traversal; reached Recall@10 of 0.93 and F1 of 0.90}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Built a central gateway that gives every agent access to 300+ reusable skills across the software development lifecycle}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Reduced prompt size by loading MCP tools on demand (tool search and CLI resolution across 10+ internal and SaaS servers), and by batching multi-step tool calls in a Python subprocess so only the summary reaches the model}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Benchmarked models on our own agent tasks to pick the best cost--quality trade-off for each workload, and set prompt-cache lifetimes per session type (long for main sessions, short for sub-agents)}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Built a session-analysis dashboard that reads agent traces and flags wasteful patterns --- oversized context, cache misses, wrong model choice --- with a suggested fix for each}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{Currently working on \textbf{self-improving agent memory}: turning execution traces and evaluation scores into updates to the knowledge graph and skills, without manual prompt changes}
+
+\centry[\dk{Feb 2026}{Present}]
+\plabel{Impact}\par
+\bitem{65\% of pull-request workflows automated}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{10K--30K fewer tokens per session; 55--100\% fewer tokens on multi-step tasks}
+\bentry[\dk{Feb 2026}{Present}]
+\bitem{52\% lower cost per session and 34\% lower cost per 100 requests}
+
+% =====================================================================
+%  EXPERIENCE (production-grade rewrite)
+%  [X]      = điền số liệu thật, hoặc xoá vế đó nếu không có
+%  % VERIFY = chỉ giữ nếu bạn thực sự đã làm phần này
+% =====================================================================
+
+\entry*[\dk{Jan 2024}{Jan 2026}]
+\entrytitle{AI Engineer}, GEM Corporation, Ha Noi, Vietnam
+
+% ---------------------------------------------------------------------
+\entry*[\dk{Jan 2024}{Jan 2026}]
+\entrysub{\fontsize{12}{14.5}\selectfont HSC AI Platform (HSC-AI)}\newline
+\pfield{Role}{BE/AI Engineer (Core)\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad 7 months, team of 7}
+\pfieldlast{Tech Stack}{Flask, MySQL, LangChain, LiteLLM, AWS Bedrock, Azure OpenAI, Vertex AI, LangSmith, PyTorch, GitLab CI/CD}
+
+\gentry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Responsibilities}\par
+\bitem{Architected a multi-tenant SaaS AI platform (Flask, MySQL) using a shared-schema model with tenant-scoped data access; built core services for authentication, audit logging, and per-user history}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Built a shared retrieval and orchestration layer (LangChain) powering agentic RAG, chatbots, real-time translation, and meeting summarization, so every new AI feature reuses one hardened pipeline}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Implemented a multi-provider LLM gateway on LiteLLM across Amazon Bedrock, Azure OpenAI, and Vertex AI with latency- and cost-aware routing and automatic fallback on provider errors and rate limits} % VERIFY: fallback
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Instrumented end-to-end tracing and evaluation in LangSmith to monitor latency, token cost, and answer quality in production; shipped through GitLab CI/CD with automated test gates}
+
+\centry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Impact}\par
+\bitem{Serves 1M+ end users with p95 end-to-end latency held under the 5\,s SLA} % VERIFY: p95 vs average
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Dynamic routing cut API latency by 40\% and LLM spend by 70\%; fallback kept the platform available through single-provider outages} % VERIFY
+
+% ---------------------------------------------------------------------
+\entry*[\dk{Jan 2024}{Jan 2026}]
+\entrysub{\fontsize{12}{14.5}\selectfont Enterprise Data Retrieval Chatbot}\newline
+\pfield{Role}{AI Engineer\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad 6 months, team of 6}
+\pfieldlast{Tech Stack}{LangChain, Qdrant, Unsloth, vLLM, MLflow, Airflow, Flask, MongoDB, Redis}
+
+\gentry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Responsibilities}\par
+\bitem{Built a hybrid retrieval system over enterprise documents with text and tabular images, routing each query between vector RAG (LangChain, Qdrant) and text-to-SQL with schema-aware prompting and read-only query validation} % VERIFY: read-only validation
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Fine-tuned LLMs with Unsloth on Chain-of-Thought data for multi-step reasoning, benchmarked against the base model on a held-out evaluation set}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Designed a reproducible training-to-serving pipeline: Airflow for data and training orchestration, MLflow for experiment tracking and model registry, vLLM for streaming inference over WebSockets}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Used Redis for response caching and session state and MongoDB for conversation history to keep the serving path stateless and horizontally scalable} % VERIFY
+
+\centry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Impact}\par
+\bitem{One chatbot answers questions spanning unstructured documents, tabular images, and SQL databases}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Time-to-first-token under 8\,s in production; 35\% accuracy on multi-step queries over the base model}
+
+% ---------------------------------------------------------------------
+\entry*[\dk{Jan 2024}{Jan 2026}]
+\entrysub{\fontsize{12}{14.5}\selectfont Generative Perspective for Products}\newline
+\pfield{Role}{BE/AI Engineer (Core)\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad 4 months, team of 8}
+\pfieldlast{Tech Stack}{FastAPI, PostgreSQL, Redis, PyTorch, SAM-3, Triton Inference Server, Milvus, Langfuse, Docker, AWS EC2}
+
+\gentry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Responsibilities}\par
+\bitem{Researched and developed a TPS-based warp modeling algorithm for apparel images, optimizing per-product processing time from 3\,s to 1.2\,s }
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Designed with BAs and POD clients a scalable backend (FastAPI, PostgreSQL) with Redis-backed asynchronous jobs for GPU-heavy segmentation and matting workloads} % VERIFY: async jobs
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Fine-tuned SAM-3 and developed a TPS-based warp modeling algorithm for apparel design automation}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Built a product recommendation service on SigLIP-2 embeddings and the Milvus vector database}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Served SAM-3, Sapiens, and ViTMatte on NVIDIA Triton with dynamic batching, containerized with Docker on AWS EC2 GPU instances, with request tracing in Langfuse} % VERIFY: dynamic batching
+
+\centry[\dk{Jan 2024}{Jan 2026}]
+\plabel{Impact}\par
+\bitem{\textasciitilde98\% segmentation accuracy ([metric, e.g.\ mIoU]) after fine-tuning}
+\bentry[\dk{Jan 2024}{Jan 2026}]
+\bitem{Recommendations across a 1,000+ item catalog; p95 inference latency of 3\,s in production}
+
+% =====================================================================
+\entry*[\dk{Nov 2023}{Jan 2024}]
+\entrytitle{AI Researcher Intern}, GEM Corporation, Ha Noi, Vietnam --- advised by Dr.\ Tungxuan Vu
+
+% ---------------------------------------------------------------------
+\entry*[\dk{Nov 2023}{Jan 2024}]
+\entrysub{\fontsize{12}{14.5}\selectfont Time-Series Forecasting of Mobile Data Usage}\newline
+\pfield{Role}{AI Researcher Intern\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad Nov 2023 -- Jan 2024, team of 2}
+\pfieldlast{Tech Stack}{Python, LSTM, XGBoost, Pandas, Scikit-learn}
+
+\gentry[\dk{Nov 2023}{Jan 2024}]
+\plabel{Responsibilities}\par
+\bitem{Built a reproducible data pipeline to clean telecom usage records and engineer demographic and historical-usage features}
+\bentry[\dk{Nov 2023}{Jan 2024}]
+\bitem{Benchmarked LSTM and XGBoost under a common protocol with time-based train/validation splits to prevent look-ahead leakage} % VERIFY: time-based split
+
+\centry[\dk{Nov 2023}{Jan 2024}]
+\plabel{Impact}\par
+\bitem{Achieved R$^2$ of 0.946 on user-level data-usage prediction}
+\bentry[\dk{Nov 2023}{Jan 2024}]
+\bitem{Reduced RMSE by 25\% versus baseline regression models}
+
+% ---------------------------------------------------------------------
+\entry*[\dk{Nov 2023}{Jan 2024}]
+\entrysub{\fontsize{12}{14.5}\selectfont Graph-Based Customer Segmentation from Call Networks}\newline
+\pfield{Role}{AI Researcher Intern\quad{\sffamily\bfseries\color{KeyColour}Duration}\quad Nov 2023 -- Jan 2024, team of 2}
+\pfieldlast{Tech Stack}{Python, NetworkX, Louvain, Girvan--Newman, DBSCAN}
+
+\gentry[\dk{Nov 2023}{Jan 2024}]
+\plabel{Responsibilities}\par
+\bitem{Built a call-relationship graph from call-detail records enriched with demographic attributes}
+\bentry[\dk{Nov 2023}{Jan 2024}]
+\bitem{Compared community-detection (Louvain, Girvan--Newman) and density-based (DBSCAN) methods, selecting partitions by modularity}
+
+\centry[\dk{Nov 2023}{Jan 2024}]
+\plabel{Impact}\par
+\bitem{Identified 15 major customer clusters with distinct demographic and calling patterns}
+\bentry[\dk{Nov 2023}{Jan 2024}]
+\bitem{Improved modularity by 15\% over baseline; enabled the business team to target high-value and churn-risk segments}
+
+\end{rubric}
+\end{filecontents*}
+
+\begin{filecontents*}[overwrite]{cv-education.tex}
+\begin{rubric}{Education}
+
+\entry*[2022 -- 2025]
+\entrytitle{B.S. in Information Technology}, Faculty of Artificial Intelligence \newline
+FPT University, Hoa Lac, Ha Noi, Vietnam \quad GPA: 3.46/4.00
+
+\end{rubric}
+\end{filecontents*}
+
+\begin{filecontents*}[overwrite]{cv-publications.tex}
+%% Hand-written publication list (no biblatex in this build).
+%% Own name is bolded manually. Reverse chronological.
+%% TODO: replace the Google Scholar links with each paper's DOI / Springer link.
+\begin{rubric}{Publications}
+\entry*[2026]
+\textbf{M. Nguyen}, V. Tran. ``News-Driven Sustainability Insight Extraction of Vietnamese Banking Using Knowledge Graph-RAG and LLM-Based Question-Answering System.'' In \textit{Proceedings of the International Symposium on Integrated Uncertainty in Knowledge Modelling and Decision Making (IUKM 2026)}, pp.~378--390. Springer Nature Singapore, Sep 2026. \href{https://scholar.google.com/citations?hl=en&user=v25olzwAAAAJ}{[link]}
+\entry*[2026]
+\textbf{M. Nguyen}, A. Vuong, V. Tran, T. Bui. ``GRI-Aligned Sustainability Reporting Assessment via Knowledge Graph-RAG and LLM-Based Question-Answering: A Case Study of Vietnamese Banks.'' In \textit{Proceedings of the International Conference on Computational Science and Its Applications (ICCSA 2026)}, pp.~100--116. Springer Nature Switzerland, Jun 2026. \href{https://scholar.google.com/citations?hl=en&user=v25olzwAAAAJ}{[link]}
+\entry*[2026]
+\textbf{M. Nguyen}, V. Tran, T. Bui, T. Ngo, T. Nguyen. ``Domain-Adapted Embedding Fine-tuning based ESG Question-Answering System Using GraphRAG and Large Language Models: A Case Study for the Vietnamese Banking Sector.'' Presented at the \textit{2nd International Conference on Artificial Intelligence Systems (AIS 2026)}, San Antonio, TX, USA, May 2026. Proceedings forthcoming.
+
+\end{rubric}
+\end{filecontents*}
+
+\begin{filecontents*}[overwrite]{cv-skills.tex}
+\begin{rubric}{Skills}
+
+\entry*[Programming] Python, Rust, TypeScript, SQL, Bash
+\entry*[KG] LLM-guided entity/relation extraction, KG schema design, KG-enhanced RAG, Neo4j, Cypher, NetworkX
+\entry*[LLM \& NLP] PyTorch, Hugging Face Transformers, LangChain / LlamaIndex, sentence-transformers, embedding fine-tuning, vector databases (Qdrant, Milvus), prompt engineering
+\entry*[ML Methods] Sequence models (LSTM), gradient boosting (XGBoost), community detection (Louvain, Girvan--Newman), density-based clustering (DBSCAN), feature engineering, model evaluation
+\entry*[MLOps \& Data] NumPy, Pandas, Scikit-learn, Jupyter, MLflow, Airflow, Langfuse, DeepEval
+\entry*[Model Serving] ONNX, TensorRT, TorchScript, NVIDIA Triton Inference Server, vLLM
+\entry*[Cloud \& Infra] AWS (S3, EC2, EKS, SageMaker), Docker, Git, Linux
+\entry*[Research] Experimental design, benchmark construction, ablation studies, literature review, academic writing
+
+\end{rubric}
+\end{filecontents*}
+
+\begin{filecontents*}[overwrite]{cv-misc.tex}
+\begin{rubric}{Honors \& Certifications}
+
+\entry*[2024] \textbf{Top 3}, VPBank Hackathon --- Talent Acquisition Assistant solution
+\entry*[2024] \textbf{Top 4}, FPT Hackathon --- Generative AI solution
+\entry*[2024] IELTS Academic, overall band 6.5
+
+\end{rubric}
+\end{filecontents*}
+
+\begin{filecontents*}[overwrite]{cv-referee.tex}
+\begin{rubric}{References {\normalsize\mdseries\itshape\color{KeyColour}--- contact details available upon request}}
+
+\entry*[Research advisor] \textbf{Dr.\ Vanha Tran}, Lecturer, FPT University --- \href{https://orcid.org/0000-0003-2714-6707}{ORCID: 0000-0003-2714-6707}
+\entry*[Internship supervisor] \textbf{Dr.\ Tungxuan Vu}, AI Specialist, GEM Corporation --- \href{https://scholar.google.com/citations?user=IMNcTe_tJT8C}{Google Scholar}
+
+\end{rubric}
+\end{filecontents*}
+
+
+\documentclass[a4paper,skipsamekey,11pt,english]{curve}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  2. STYLING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\usepackage[a4paper,left=1.2cm,right=1.2cm,top=0.9cm,bottom=0.8cm]{geometry}
+\usepackage{xcolor}
+\usepackage{amssymb}
+%% Icons: fontawesome5 on Overleaf / full TeX Live; marvosym fallback elsewhere
+\IfFileExists{fontawesome5.sty}{%
+  \usepackage{fontawesome5}
+  \newcommand{\iconEmail}{\faEnvelope[regular]}
+  \newcommand{\iconPhone}{\faPhone}
+  \newcommand{\iconLinkedin}{\faLinkedin}
+  \newcommand{\iconScholar}{\faGraduationCap}
+}{%
+  \usepackage{marvosym}
+  \newcommand{\iconEmail}{\Letter}
+  \newcommand{\iconPhone}{\Mobilefone}
+  \newcommand{\iconLinkedin}{\textsf{in}}
+  \newcommand{\iconScholar}{\textsf{GS}}
+}
+\usepackage[hidelinks]{hyperref}
+\usepackage{comment}
+\usepackage{ifxetex,ifluatex}
+\newif\ifxetexorluatex
+\ifxetex\xetexorluatextrue\else\ifluatex\xetexorluatextrue\else\xetexorluatexfalse\fi\fi
+
+%% ---- colours (override in the main file if you like) ----
+\definecolor{SwishLineColour}{HTML}{1C3962}
+\definecolor{MarkerColour}{HTML}{1C3962}
+\definecolor{KeyColour}{HTML}{5A5A5A}
+
+%% ---- rubric (section) look: sans bold heading + swish line ----
+\rubricalignment{l}
+\rubricfont{\fontsize{12}{14.5}\selectfont\bfseries\sffamily\color{black}}
+\def\@@rubrichead#1{%
+  \parbox[b]{\textwidth}{\@rubricfont#1\par\vspace{2pt}%
+    {\color{SwishLineColour}\hrule height 1pt}}}
+\setlength\rubricspace{1pt}
+\AtBeginDocument{\setlength\headerspace{4pt}}
+\setlength\rubricafterspace{0pt}
+\setlength\LTpre{2pt}
+\setlength\LTpost{0pt}
+\setlength\subrubricspace{2pt}
+\subrubricfont{\normalsize\bfseries\sffamily}
+
+%% ---- key column (dates) and marker ----
+\keyfont{\small\color{KeyColour}\sffamily}
+\keyalignment{r}
+\newcommand{\prefixmarker}[1]{\prefix{\textcolor{MarkerColour}{#1}}}
+\prefixmarker{$\blacksquare$}
+
+%% ---- header fields ----
+\newcommand{\makefield}[2]{{\color{KeyColour}#1}~#2\hspace{1.5em}}
+
+%% ---- bullets inside entries (enumitem clashes with curve.cls, so plain list) ----
+\renewenvironment{itemize}{%
+  \begin{list}{\textcolor{MarkerColour}{\textbullet}}{%
+    \setlength\leftmargin{1.1em}\setlength\labelwidth{0.8em}\setlength\labelsep{0.3em}%
+    \setlength\itemsep{0pt}\setlength\topsep{0pt}\setlength\parsep{0pt}\setlength\partopsep{0pt}}}%
+  {\end{list}}
+
+%% ---- continuation entry: same row machinery as \entry*, but no marker
+%% and pulled up tight against the previous row (for Responsibilities / Impact)
+\newcommand\centry[1][]{%
+  \gdef\@nextentry{\\[-12pt]\par}\@nextentry
+  \noalign\bgroup\gdef\@beforespace{\subrubricbeforespace}%
+  \gdef\@nextentry{\\\par}\@key{#1}%
+  \egroup\@@key&&}
+
+\newcommand\gentry[1][]{%
+  \gdef\@nextentry{\\*[-12pt]\par}\@nextentry
+  \noalign\bgroup\gdef\@beforespace{\subrubricbeforespace}%
+  \gdef\@nextentry{\\\par}\@key{#1}%
+  \egroup\@@key&&}
+
+%% ---- page-break fix: on continuation pages the next row may be a
+%% marker-less continuation row that pulls itself up by 9pt; add that
+%% back below the "(continued)" heading so the two never overlap
+\usepackage{etoolbox}
+\patchcmd{\rubric}{\@rubrichead{#1\@continuedname}\\*[\rubricspace]}
+  {\@rubrichead{#1\@continuedname}\\*[\dimexpr\rubricspace+12pt\relax]}{}{\typeout{curve patch failed}}
+
+%% a list closing a table cell leaves a blank line under it; remove it
+\AtEndEnvironment{itemize}{\par\vspace{-\parskip}}
+
+%% ---- one bullet per table row, so a page can break between bullets
+\newcommand\bentry[1][]{%
+  \gdef\@nextentry{\\[0pt]\par}\@nextentry
+  \noalign\bgroup\gdef\@beforespace{\subrubricbeforespace}%
+  \gdef\@nextentry{\\\par}\@key{#1}%
+  \egroup\@@key&&}
+\newcommand{\bitem}[1]{\leavevmode\hangindent=1.1em\hangafter=1\hbox to 1.1em{\hss\textcolor{MarkerColour}{\textbullet}\hspace{0.3em}}#1}
+
+%% ---- two-line date key: keeps the date column narrow ----
+\newcommand{\dk}[2]{\begin{tabular}[t]{@{}r@{}}#1 --\\#2\end{tabular}}
+
+\linespread{0.95}
+
+%% ---- small helpers ----
+\newcommand{\entrytitle}[1]{\textbf{#1}}
+\newcommand{\entrysub}[1]{\textit{#1}}
+\newcommand{\tech}[1]{{\small\color{KeyColour}#1}}
+%% structured project block: \pfield{Label}{text}
+\newcommand{\pfield}[2]{\leavevmode{\small\sffamily\bfseries\color{KeyColour}#1}\quad{\small #2}\newline}
+\newcommand{\pfieldlast}[2]{\leavevmode{\small\sffamily\bfseries\color{KeyColour}#1}\quad{\small #2}}
+\newcommand{\pfieldlist}[1]{\leavevmode{\small\sffamily\bfseries\color{KeyColour}#1}\begin{itemize}}
+\newcommand{\plistend}{\end{itemize}}
+\newcommand{\plabel}[1]{\leavevmode{\small\sffamily\bfseries\color{KeyColour}#1}}
+\newcommand{\mynames}[1]{}   % stub: no biblatex here; own name bolded by hand
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  3. FONTS, HEADER, PHOTO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fonts: the template's Cochineal + Cabin + Inconsolata when installed
+% (Overleaf / full TeX Live); Charter + Helvetica otherwise.
+\ifxetexorluatex
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+\fi
+\IfFileExists{cochineal.sty}{%
+  \usepackage[p,osf,swashQ]{cochineal}
+  \usepackage[medium,bold]{cabin}
+  \usepackage[varqu,varl,scale=0.9]{zi4}
+}{%
+  \usepackage{charter}
+  \usepackage[scaled=0.88]{helvet}
+}
+
+% Change the colours if you want
+% \definecolor{SwishLineColour}{HTML}{00FFFF}
+% \definecolor{MarkerColour}{HTML}{0000CC}
+
+% Change the item prefix marker if you want
+% \prefixmarker{$\diamond$}
+
+%% Photo is only shown if "fullonly" is included
+\includecomment{fullonly}
+% \excludecomment{fullonly}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\headerscale{1}
+\leftheader{%
+  {\fontsize{17.28}{21}\selectfont\bfseries\sffamily Nguyen Minh Quang}\\[2pt]
+  {\small\color{KeyColour}AI Engineer \textperiodcentered\ NLP \& LLM \&  Agents}\\[6pt]
+  \small
+  \makefield{\iconEmail}{\href{mailto:nguyenminhquangai04@gmail.com}{\texttt{nguyenminhquangai04@gmail.com}}}
+  \makefield{\iconPhone}{\texttt{+84 325 689 330}}\\[2pt]
+  \makefield{\iconLinkedin}{\href{https://www.linkedin.com/in/wang-nguyen-b17b01347/}{\texttt{linkedin.com/in/wang-nguyen-b17b01347}}}\\[2pt]
+  \makefield{\iconScholar}{\href{https://scholar.google.com/citations?hl=en&user=v25olzwAAAAJ}{\texttt{scholar.google.com/citations?user=v25olzwAAAAJ}}}
+}
+
+\rightheader{~}
+\begin{fullonly}
+\photo[r]{figures/photo}
+\photoscale{0.14}
+\end{fullonly}
+
+\title{Curriculum Vitae}
+
+\begin{document}
+\makeheaders[c]
+
+\makerubric{cv-research}
+\makerubric{cv-employment}
+\makerubric{cv-education}
+
+\makerubric{cv-publications}
+
+\makerubric{cv-skills}
+\makerubric{cv-misc}
+\makerubric{cv-referee}
+
+\end{document}
